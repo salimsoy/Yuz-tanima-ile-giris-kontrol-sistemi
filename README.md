@@ -31,26 +31,26 @@ Bu modül (add_user.py), veritabanına yeni kullanıcı eklemek için kullanıl�
 
 **Sınıf Yapısı ve Metotlar**
 
-- __init__(self) - Başlatma ve Hazırlık:
+- `__init__(self)` - Başlatma ve Hazırlık:
 
 Sistem açıldığında faces klasörünü kontrol eder, yoksa oluşturur.
 
 FacialRecognition yardımcı sınıfını kullanarak, mevcut veritabanındaki tüm yüz verilerini (.npy dosyaları) hafızaya yükler. Bu işlem, yeni kaydedilecek kişinin daha önce kaydedilip kaydedilmediğini (Duplicate Check) kontrol etmek için gereklidir.
 
-- face_detection(self, frame) - Yüz Analizi:
+- `face_detection(self, frame)` - Yüz Analizi:
 
 OpenCV'den gelen BGR formatındaki görüntüyü, face_recognition kütüphanesinin işleyebileceği RGB formatına çevirir.
 
 Görüntüdeki yüzün 128 boyutlu matematiksel vektörünü (encoding) çıkarır.
 
-- face_save(self, encodings, name) - Veri Saklama:
+- `face_save(self, encodings, name)` - Veri Saklama:
 
 Yüz verisini .jpg resim dosyası olarak değil, işlenmiş .npy (NumPy Array) formatında saklar.
 
 Avantajı: Sistem her açıldığında yüzleri tekrar tekrar analiz etmek zorunda kalmaz, doğrudan matematiksel veriyi okur. Bu da açılış hızını %90 artırır.
 
-## Çalışma Algoritması (Main Loop)
-Kullanıcı c tuşuna bastığında sistem şu Karar Ağacını izler:
+## Çalışma Algoritması
+Kullanıcı `c` tuşuna bastığında sistem şu Karar Ağacını izler:
 
 1. Görüntü Yakalama: Anlık kare geçici olarak diske kaydedilir.
 
@@ -73,5 +73,6 @@ Tüm kontrollerden geçerse, yüz verisi İSİM_encoding.npy olarak kaydedilir.
 5. Güvenlik:
 
 try-finally bloğu sayesinde, program hata verse bile kamera kaynağı serbest bırakılarak sistemin takılı kalması önlenir.
+
 
 
