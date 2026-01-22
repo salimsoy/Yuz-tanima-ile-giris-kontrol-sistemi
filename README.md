@@ -26,7 +26,7 @@ Sistem iki temel modülden oluşur:
 - Yüz Kayıt Modülü: Yeni kişileri web kamerası üzerinden kaydeder, aynı kişinin tekrar kaydedilmesini engeller.
 - Yüz Tanıma Modülü: Kayıtlı kişileri tanır, erişim izni verir ve giriş saatlerini bir CSV dosyasına (Excel uyumlu) kaydeder.
 
-1. Yüz Kayıt Modülü (SaveFace)
+## 1. Yüz Kayıt Modülü (SaveFace)
 Bu modül (add_user.py), veritabanına yeni kullanıcı eklemek için kullanılır. Basit bir fotoğraf çekme işleminden ziyade, hatalı ve mükerrer kayıtları önlemek için bir dizi doğrulama algoritması çalıştırır.
 
 **Sınıf Yapısı ve Metotlar**
