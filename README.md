@@ -49,7 +49,7 @@ Yüz verisini .jpg resim dosyası olarak değil, işlenmiş .npy (NumPy Array) f
 
 Avantajı: Sistem her açıldığında yüzleri tekrar tekrar analiz etmek zorunda kalmaz, doğrudan matematiksel veriyi okur. Bu da açılış hızını %90 artırır.
 
-## Çalışma Algoritması
+### Çalışma Algoritması
 Kullanıcı `c` tuşuna bastığında sistem şu Karar Ağacını izler:
 
 1. Görüntü Yakalama: Anlık kare geçici olarak diske kaydedilir.
@@ -102,7 +102,7 @@ Format: YIL.AY.GÜN SAAT:DAKİKA:SANİYE, İSİM
 
 Tanınan kişinin yüzünü yeşil bir çerçeve içine alır ve ismini ekrana yazar.
 
-## Çalışma Algoritması
+### Çalışma Algoritması
 Sistem Tanıma Modunda çalıştırıldığında şu adımları izler:
 
 - Hazırlık: Kamera açılmadan önce kayıtlı kişi olup olmadığı kontrol edilir.
