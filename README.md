@@ -74,5 +74,66 @@ Tüm kontrollerden geçerse, yüz verisi İSİM_encoding.npy olarak kaydedilir.
 
 try-finally bloğu sayesinde, program hata verse bile kamera kaynağı serbest bırakılarak sistemin takılı kalması önlenir.
 
+## 2. Yüz Tanıma ve Loglama Modülü (FacialRecognition)
+Bu modül (facial_recognition.py), sistemin çekirdeğidir. Kayıtlı yüz verilerini yükler, canlı kamera görüntüsünü analiz eder ve kimlik doğrulama işlemini gerçekleştirir.
+
+**Sınıf Yapısı ve Metotlar**
+- `__init__ ve load_encodings` - Veri Yükleme:
+
+Sistem başlatıldığında faces klasöründeki tüm .npy dosyalarını tarar.
+
+İsimleri ve yüz haritalarını (encodings) RAM'e yükler. Bu sayede tanıma işlemi milisaniyeler sürer.
+
+Güvenlik: Eğer veritabanı boşsa sistemi başlatmaz ve kullanıcıyı uyarır.
+
+- `face_comparison` - Karşılaştırma Motoru:
+
+Canlı görüntüden alınan yüz ile veritabanındaki yüzler arasındaki Öklid Mesafesini (Euclidean Distance) ölçer.
+
+Bu mesafe "Benzerlik Farkını" temsil eder. Sayı ne kadar küçükse, benzerlik o kadar fazladır.
+
+- `add_record_log` - Giriş Kaydı (Logging):
+
+Tanıma işlemi tamamlandığında (Başarılı veya Başarısız), sonucu access_log.csv dosyasına kaydeder.
+
+Format: YIL.AY.GÜN SAAT:DAKİKA:SANİYE, İSİM
+
+- `face_drawing` - Görselleştirme:
+
+Tanınan kişinin yüzünü yeşil bir çerçeve içine alır ve ismini ekrana yazar.
+
+## Çalışma Algoritması
+Sistem Tanıma Modunda çalıştırıldığında şu adımları izler:
+
+- Hazırlık: Kamera açılmadan önce kayıtlı kişi olup olmadığı kontrol edilir.
+
+- Yüz Tespiti:
+
+Kamera görüntüsü taranır. Eğer 0 yüz veya birden fazla yüz varsa ekrana uyarı basılır ve işlem yapılmaz.
+
+- Kimlik Doğrulama:
+
+Tespit edilen tek yüz, veritabanı ile karşılaştırılır.
+
+- Eşik Değeri (Threshold): 0.50
+
+Fark < 0.50 ise: "Giriş Başarılı" (İsim belirlenir).
+
+Fark > 0.50 ise: "Erişim Reddedildi" (İsim "Bilinmiyor" olarak kalır).
+
+- Loglama ve Çizim:
+
+Sonuç CSV dosyasına işlenir.
+
+Kullanıcının yüzüne çerçeve çizilir.
+
+- Sonuç ve Kapanış 
+
+Görsel Bildirim: Tanıma işlemi bittiğinde, yakalanan yüz karesi (üzerinde isim ve çerçeve çizili halde) ekrana sabitlenir.
+
+Bekleme Modu: Güvenlik görevlisinin veya kullanıcının sonucu net görebilmesi için ekran bir tuşa basılana kadar dondurulur (cv2.waitKey(0)).
+
+Sistemi Sonlandırma: Herhangi bir tuşa basıldığında işlem tamamlanmış kabul edilir, kamera kapatılır ve sistem güvenli bir şekilde sonlandırılır.
+
 
 
