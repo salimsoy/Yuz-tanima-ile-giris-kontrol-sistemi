@@ -137,7 +137,6 @@ Sistemi Sonlandırma: Herhangi bir tuşa basıldığında işlem tamamlanmış k
 
 
 ## 1. Yüz Kayıt Modülü (add_user.py)
-Bu modül sadece yüzün yerini bulmakla ilgilenir.
 ```python
 import cv2
 import face_recognition
