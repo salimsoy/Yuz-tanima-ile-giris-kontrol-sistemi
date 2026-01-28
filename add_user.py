@@ -2,7 +2,7 @@ import cv2
 import face_recognition
 import os
 import numpy as np
-from facial_recognition import FacialRecognition
+from facial_recognition import FaceRecognizer
 
 
 
@@ -10,11 +10,6 @@ class SaveFace:
     def __init__(self):
         # Klasör yoksa oluştur
         os.makedirs('faces', exist_ok=True)
-        encodings_path = 'faces'
-        # Yardımcı sınıfı FacialRecognition başlatır
-        self.face_detect = FacialRecognition()
-        # Daha önce kaydedilmiş yüzleri yükle
-        self.known_encodings, self.class_names = self.face_detect.load_encodings(encodings_path)
         
         
     def face_detection(self, frame):
@@ -39,6 +34,9 @@ class SaveFace:
         try:
             cap = cv2.VideoCapture(0)
             print(f"'{name}' için kayıt başladı. Fotoğraf çekmek için 'c', çıkmak için 'q' basın.")
+            # Yardımcı sınıfı FacialRecognition başlatır
+            recognizer = FaceRecognizer()
+            
             
             while True:
                 success, frame = cap.read()
@@ -61,13 +59,13 @@ class SaveFace:
                     cv2.imwrite(img_path, frame)
     
                     # Yüzleri bul
-                    encodings = self.face_detection(frame)
+                    locations, encodings = recognizer.detect_face(frame)
                     
                     # Ekranda SADECE 1 yüz olup olmadığını kontrol et
                     if len(encodings) == 1:
                         # Veritabanında kayıtlı yüz varsa karşılaştır
-                        if self.known_encodings:
-                            min_distance, best_match_index = self.face_detect.face_comparison(self.known_encodings, encodings[0])
+                        if recognizer.known_encodings:
+                            min_distance, best_match_index = recognizer.face_comparison(recognizer.known_encodings, encodings[0])
                         # Veritabanı boşsa (ilk kayıt), mesafe 1.0 (benzemiyor) kabul et
                         else:
                             min_distance = 1.0
