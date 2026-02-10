@@ -1,5 +1,8 @@
 # Yüz Tanıma İle Giriş Kontrol Sistemi
-Bu proje, gerçek zamanlı çalışan akıllı bir Güvenlik ve Yoklama Sistemidir.
+
+Bu proje, Python ve OpenCV kullanılarak geliştirilmiş, **modüler mimariye sahip** bir biyometrik güvenlik sistemidir. Karmaşıklığı yönetmek ve kodun okunabilirliğini artırmak amacıyla **"Separation of Concerns" (İlgi Alanlarının Ayrılması)** prensibi gözetilerek tasarlanmıştır.
+
+Sistem; gerçek zamanlı yüz tespiti, kimlik doğrulama, log tutma ve yeni kullanıcı kaydetme işlemlerini birbirinden bağımsız sınıflar üzerinden yönetir.
 
 Kamera görüntülerini anlık olarak işleyerek kişileri tanır ve bir güvenlik görevlisi gibi karar verir. Güvenlik sistemlerine giriş niteliğinde olan bu proje, hem yüz tanıma hem de veri kaydetme (logging) yeteneklerine sahiptir.
 Yüz algılama için face_recognition kütüphanesi kullanılmıştır.
